@@ -10,6 +10,7 @@ class TestPrime(unittest.TestCase):
         self.assertTrue(prime.isprime(17))
         self.assertFalse(prime.isprime(-1))
         self.assertFalse(prime.isprime(-8))
+        self.assertFalse(prime.isprime(4))
 
     def test_getprimes(self):
         self.assertEqual(prime.getprimes(-10, 10), [2, 3, 5, 7])
