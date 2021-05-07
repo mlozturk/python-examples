@@ -2,46 +2,29 @@ import math
 
 class DigitInfo:
     def __init__(self, integer):
-        self.integer = integer
+        self._integer = integer
+        self._digits = []
+        while integer > 0:
+            self._digits.append(integer % 10)
+            integer //= 10
+        self._digits.reverse()
     
     def digits(self):
-        digitlist = []
-        for i in reversed(range(0, len(str(self.integer)))):
-            digit = self.integer // 10**i % 10
-            digitlist.append(digit)
-        return digitlist
+        return self._digits
 
     def sum(self):
-        sum = 0
-        for i in DigitInfo.digits(self):
-            sum = sum + i
-        return sum
+        return sum(self._digits)
 
     def sum_of_squares(self):
-        sumofsquares = 0
-        for i in DigitInfo.digits(self):
-            sumofsquares = sumofsquares + i**2
-        return sumofsquares
+        return sum([i * i for i in self._digits])
+        # return sum(map(lambda i : i * i, self._digits))
 
     def square_of_sum(self):
-        return DigitInfo.sum(self)**2
+        return self.sum()**2
 
     def ispalindrome(self):
-        reverselist = []
-        for i in range(0, len(str(self.integer))):
-            digit = self.integer // 10**i % 10
-            reverselist.append(digit)
-        if DigitInfo.digits(self) == reverselist:
-            return True
-        else:
-            return False
+        return self._digits == list(reversed(self._digits))
         
     def isarmstrong(self):
-        armstrong = 0
-        for i in DigitInfo.digits(self):
-            armstrong = armstrong + i**(len(str(self.integer)))
-        if armstrong == self.integer:
-            return True
-        else:
-            return False
-        
+        return sum(map(lambda i : i ** len(self._digits),
+            self._digits)) == self._integer
